@@ -79,13 +79,16 @@ setnames(activity_labels,c("V1","V2"),c("ActivityID","ActivityLabel"))
 
 # Step 6 - create the tidy dataset by cbinding the component datasets
 HAR_X_keep <- grep("mean\\(\\)|std\\(\\)",names(HAR_X),value=TRUE) #Columns to Keep
-HAR_tidy <- cbind(
+HAR_tidy_pre <- cbind(
         HAR_subject,
         left_join(HAR_y, activity_labels, by = "ActivityID"),
         transmute(HAR_granular_mstd, TestTrain = as.factor(ifelse(obs_num <= nrow(subject_train),"Train","Test"))),
         select(HAR_granular_mstd,-obs_num),
         HAR_X[,..HAR_X_keep]
         )
+
+# Take the averages of all the variables
+HAR_tidy <- HAR_tidy_pre[ , lapply(.SD, sum), by = .(Test_SubjectID,ActivityID,ActivityLabel,TestTrain)]
 
 # Step 7 - Write out the tidy dataset
 write.table(HAR_tidy,"./data/HAR_tidy.txt",row.name=FALSE)

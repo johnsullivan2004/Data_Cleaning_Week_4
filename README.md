@@ -11,11 +11,13 @@ The input dataset is found here:
 
 My script is found in the *run_analysis.R* file in this github section.
 
+The code has appropriate comments to explain it's operation.
+
 The output dataset is included as well - *HAR_tidy.txt*.
 
 ##  Codebook for HAR_tidy.txt
 
-Each Row is one observation as per tidy dataset requirements.
+Each Row is one observation as per tidy dataset requirements.  Note that all these variables are the averages of all the independent samples - and there were many for each test subject and activity.
 * Fields that define the observation:
 	+ Test_SubjectID - One of the 30 anonymous subjects
 	+ ActivityID - Activity ID
