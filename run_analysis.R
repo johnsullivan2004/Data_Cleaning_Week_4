@@ -88,7 +88,7 @@ HAR_tidy_pre <- cbind(
         )
 
 # Take the averages of all the variables
-HAR_tidy <- HAR_tidy_pre[ , lapply(.SD, sum), by = .(Test_SubjectID,ActivityID,ActivityLabel,TestTrain)]
+HAR_tidy <- HAR_tidy_pre[ , lapply(.SD, mean), by = .(Test_SubjectID,ActivityID,ActivityLabel,TestTrain)]
 
 # Step 7 - Write out the tidy dataset
 write.table(HAR_tidy,"./data/HAR_tidy.txt",row.name=FALSE)
